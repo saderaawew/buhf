@@ -1,0 +1,458 @@
+.game-map {
+  min-height: calc(100vh - 80px);
+  padding: 2rem 1rem;
+  background: linear-gradient(rgba(18, 18, 18, 0.9), rgba(18, 18, 18, 0.8)),
+    url('/assets/map-bg.jpg');
+  background-size: cover;
+  background-position: center;
+  color: var(--text-light);
+}
+
+.map-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.map-header h1 {
+  color: var(--gold-primary);
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.map-header p {
+  color: var(--text-muted);
+  font-size: 1.1rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.map-container {
+  position: relative;
+  max-width: 1200px;
+  margin: 0 auto 2rem;
+  height: 60vh;
+  min-height: 450px;
+  max-height: 650px;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+.map-background {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: url('/assets/city-map.jpg') no-repeat center center;
+  background-size: cover;
+  overflow: hidden;
+}
+
+.map-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 80px);
+}
+
+.spinner-large {
+  width: 60px;
+  height: 60px;
+  border: 4px solid rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  border-top: 4px solid var(--gold-primary);
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.map-locations {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.map-location {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  z-index: 5;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.location-marker {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  position: relative;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+}
+
+.location-name {
+  position: absolute;
+  top: 110%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  border: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+.map-location:hover .location-name {
+  opacity: 1;
+}
+
+/* Location type styles */
+.map-location.lounge .location-marker {
+  background: radial-gradient(circle, #ae0000, #5e0000);
+  color: #ffffff;
+}
+
+.map-location.store .location-marker {
+  background: radial-gradient(circle, #00767c, #004145);
+  color: #ffffff;
+}
+
+.map-location.event_venue .location-marker {
+  background: radial-gradient(circle, #9c27b0, #6a1b9a);
+  color: #ffffff;
+}
+
+.map-location.quest_area .location-marker {
+  background: radial-gradient(circle, #e65100, #bf360c);
+  color: #ffffff;
+}
+
+.map-location.special .location-marker {
+  background: var(--gold-gradient);
+  color: #000000;
+  border-color: rgba(212, 175, 55, 0.8);
+}
+
+/* Locked locations */
+.map-location.locked .location-marker {
+  filter: grayscale(0.8);
+  opacity: 0.8;
+}
+
+.locked-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+}
+
+/* Map legend */
+.map-legend {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 1rem 2rem;
+  background-color: rgba(0, 0, 0, 0.6);
+  border-radius: 8px;
+  border: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.legend-icon {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+}
+
+.legend-icon.lounge {
+  background: radial-gradient(circle, #ae0000, #5e0000);
+  color: #ffffff;
+}
+
+.legend-icon.store {
+  background: radial-gradient(circle, #00767c, #004145);
+  color: #ffffff;
+}
+
+.legend-icon.event_venue {
+  background: radial-gradient(circle, #9c27b0, #6a1b9a);
+  color: #ffffff;
+}
+
+.legend-icon.quest_area {
+  background: radial-gradient(circle, #e65100, #bf360c);
+  color: #ffffff;
+}
+
+.legend-icon.special {
+  background: var(--gold-gradient);
+  color: #000000;
+}
+
+.legend-icon.locked {
+  background-color: #333333;
+  color: #ffffff;
+}
+
+/* Location details popup */
+.location-details {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  max-height: 60%;
+  background-color: rgba(18, 18, 18, 0.95);
+  border-top: 1px solid var(--gold-primary);
+  border-radius: 12px 12px 0 0;
+  box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.5);
+  overflow: auto;
+  z-index: 10;
+}
+
+.location-details-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+  background-color: rgba(30, 30, 30, 0.8);
+}
+
+.location-details-header h2 {
+  color: var(--gold-primary);
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.close-btn:hover {
+  color: var(--gold-primary);
+}
+
+.location-details-content {
+  display: flex;
+  padding: 1.5rem;
+}
+
+.location-image {
+  width: 200px;
+  height: 150px;
+  border-radius: 8px;
+  background-size: cover;
+  background-position: center;
+  margin-right: 1.5rem;
+  flex-shrink: 0;
+  border: 1px solid rgba(212, 175, 55, 0.3);
+}
+
+.location-info {
+  flex: 1;
+}
+
+.location-description {
+  color: var(--text-light);
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+}
+
+.location-type-badge {
+  display: inline-block;
+  padding: 0.3rem 0.7rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  color: var(--primary-dark);
+  background: var(--gold-gradient);
+}
+
+.location-locked-info {
+  background-color: rgba(255, 255, 255, 0.05);
+  padding: 1.2rem;
+  border-radius: 8px;
+  border: 1px solid #333333;
+  display: flex;
+  align-items: flex-start;
+}
+
+.location-locked-info > i {
+  font-size: 1.8rem;
+  color: #555555;
+  margin-right: 1rem;
+}
+
+.lock-requirements h3 {
+  font-size: 1rem;
+  color: var(--text-light);
+  margin-top: 0;
+  margin-bottom: 0.8rem;
+}
+
+.lock-requirements p {
+  margin: 0.5rem 0;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+}
+
+.lock-requirements p i {
+  margin-right: 0.5rem;
+  color: #666666;
+}
+
+.requirement-met {
+  margin-left: 0.5rem;
+  color: #4caf50;
+}
+
+.location-actions {
+  margin-top: 1.5rem;
+}
+
+.location-quests {
+  margin-top: 1.5rem;
+}
+
+.location-quests h3 {
+  font-size: 1rem;
+  color: var(--text-light);
+  margin-bottom: 0.8rem;
+  display: flex;
+  align-items: center;
+}
+
+.location-quests h3 i {
+  margin-right: 0.5rem;
+  color: var(--gold-primary);
+}
+
+.location-quests ul {
+  list-style: none;
+  padding: 0;
+}
+
+.location-quests li {
+  margin: 0.5rem 0;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.location-quests a {
+  color: var(--text-light);
+  text-decoration: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.3s ease;
+}
+
+.location-quests a:hover {
+  color: var(--gold-primary);
+}
+
+.location-quests a i {
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+.location-quests a:hover i {
+  opacity: 1;
+}
+
+/* Responsive styles */
+@media screen and (max-width: 768px) {
+  .map-header h1 {
+    font-size: 2rem;
+  }
+  
+  .location-details-content {
+    flex-direction: column;
+  }
+  
+  .location-image {
+    width: 100%;
+    margin-right: 0;
+    margin-bottom: 1.5rem;
+  }
+  
+  .map-container {
+    height: 50vh;
+  }
+  
+  .map-legend {
+    gap: 1rem;
+    padding: 0.8rem;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .map-header h1 {
+    font-size: 1.8rem;
+  }
+  
+  .map-header p {
+    font-size: 0.9rem;
+  }
+  
+  .location-marker {
+    width: 30px;
+    height: 30px;
+    font-size: 1rem;
+  }
+  
+  .map-legend {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.8rem;
+  }
+}

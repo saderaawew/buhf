@@ -1,0 +1,50 @@
+[
+  {
+    "_id": "loc1",
+    "name": "Клуб Афисионадо",
+    "description": "Элитный сигарный клуб в центре города",
+    "type": "club",
+    "image": "location-club.jpg",
+    "coordinates": {
+      "x": 120,
+      "y": 200
+    },
+    "level": 1,
+    "quests": ["quest1", "quest3"],
+    "items": ["item1", "item2", "item6"],
+    "visited": true,
+    "unlocked": true
+  },
+  {
+    "_id": "loc2",
+    "name": "Восточный базар",
+    "description": "Шумный рынок с экзотическими товарами",
+    "type": "market",
+    "image": "location-market.jpg",
+    "coordinates": {
+      "x": 250,
+      "y": 180
+    },
+    "level": 1,
+    "quests": ["quest2"],
+    "items": ["item3", "item4"],
+    "visited": false,
+    "unlocked": true
+  },
+  {
+    "_id": "loc3",
+    "name": "VIP Лаундж",
+    "description": "Закрытое заведение для избранных с редкими товарами",
+    "type": "lounge",
+    "image": "location-lounge.jpg",
+    "coordinates": {
+      "x": 180,
+      "y": 120
+    },
+    "level": 3,
+    "quests": ["quest4"],
+    "items": ["item5"],
+    "visited": false,
+    "unlocked": false
+  }
+]

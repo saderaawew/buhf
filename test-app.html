@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hookah & Cigar RPG - Тестовая версия</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #121212;
+            color: #e0e0e0;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid #d4af37;
+            padding-bottom: 1rem;
+        }
+        
+        h1 {
+            color: #d4af37;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.8;
+            margin-top: 0;
+        }
+        
+        .card-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .card {
+            background-color: #1e1e1e;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+            border-color: rgba(212, 175, 55, 0.5);
+        }
+        
+        .card-header {
+            background-color: #252525;
+            padding: 1rem;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+        }
+        
+        .card-title {
+            color: #d4af37;
+            margin: 0;
+            font-size: 1.4rem;
+        }
+        
+        .card-body {
+            padding: 1.5rem;
+        }
+        
+        .card-desc {
+            margin-top: 0;
+            margin-bottom: 1.5rem;
+            line-height: 1.5;
+        }
+        
+        .card-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+        
+        .card-item svg {
+            margin-right: 0.5rem;
+            color: #d4af37;
+        }
+        
+        .card-footer {
+            background-color: #252525;
+            padding: 1rem;
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
+            text-align: center;
+        }
+        
+        .btn {
+            background-color: #d4af37;
+            color: #121212;
+            border: none;
+            border-radius: 4px;
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .btn:hover {
+            background-color: #e5c158;
+        }
+        
+        .test-item {
+            display: flex;
+            background: #2a2a2a;
+            margin-bottom: 1rem;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .test-item-image {
+            width: 120px;
+            height: 120px;
+            background-color: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: #d4af37;
+        }
+        
+        .test-item-content {
+            padding: 1rem;
+            flex: 1;
+        }
+        
+        .test-item-name {
+            color: #d4af37;
+            margin-top: 0;
+            margin-bottom: 0.5rem;
+        }
+        
+        .test-item-desc {
+            margin: 0;
+            opacity: 0.8;
+            margin-bottom: 1rem;
+        }
+        
+        .test-item-price {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            background-color: #d4af37;
+            color: #121212;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 1rem;
+            border-top: 1px solid #333;
+            opacity: 0.7;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Hookah & Cigar RPG</h1>
+            <p class="subtitle">Тестовая версия с модифицированным API</p>
+        </header>
+        
+        <div class="card-container">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Магазин</h2>
+                </div>
+                <div class="card-body">
+                    <p class="card-desc">Тестирование страницы магазина с отображением предметов из мок-API.</p>
+                    
+                    <h3>Тестовые предметы:</h3>
+                    <div class="test-item">
+                        <div class="test-item-image">🚬</div>
+                        <div class="test-item-content">
+                            <h4 class="test-item-name">Кубинская сигара</h4>
+                            <p class="test-item-desc">Элитная кубинская сигара с богатым ароматом и насыщенным вкусом</p>
+                            <span class="test-item-price">250 G</span>
+                        </div>
+                    </div>
+                    
+                    <div class="test-item">
+                        <div class="test-item-image">💨</div>
+                        <div class="test-item-content">
+                            <h4 class="test-item-name">Египетский кальян</h4>
+                            <p class="test-item-desc">Традиционный египетский кальян с искусной отделкой</p>
+                            <span class="test-item-price">500 G</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button class="btn" onclick="alert('Для тестирования необходимо установить пакеты с помощью npm install')">Открыть магазин</button>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Локации</h2>
+                </div>
+                <div class="card-body">
+                    <p class="card-desc">Тестирование отображения и взаимодействия с игровыми локациями.</p>
+                    
+                    <div class="card-item">
+                        <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
+                        </svg>
+                        <span>Клуб Афисионадо</span>
+                    </div>
+                    
+                    <div class="card-item">
+                        <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
+                        </svg>
+                        <span>Восточный базар</span>
+                    </div>
+                    
+                    <div class="card-item">
+                        <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
+                        </svg>
+                        <span>VIP Лаундж (заблокировано)</span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button class="btn" onclick="alert('Для тестирования необходимо установить пакеты с помощью npm install')">Исследовать карту</button>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Инвентарь</h2>
+                </div>
+                <div class="card-body">
+                    <p class="card-desc">Тестирование отображения предметов инвентаря и взаимодействия с ними.</p>
+                    
+                    <div class="card-item">
+                        <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5z"/>
+                        </svg>
+                        <span>Кубинская сигара (2 шт.)</span>
+                    </div>
+                    
+                    <div class="card-item">
+                        <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5z"/>
+                        </svg>
+                        <span>Кальянная колба (экипировано)</span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button class="btn" onclick="alert('Для тестирования необходимо установить пакеты с помощью npm install')">Открыть инвентарь</button>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>Это тестовая версия приложения с мок-API. Для полноценной работы необходимо установить зависимости и запустить сервер.</p>
+        </footer>
+    </div>
+</body>
+</html>

@@ -1,0 +1,153 @@
+{
+  "quests": [
+    {
+      "_id": "quest1",
+      "title": "Первые шаги ценителя",
+      "description": "Познакомьтесь с основами мира элитных сигар и кальянов.",
+      "level": 1,
+      "type": "intro",
+      "status": "active",
+      "objectives": [
+        {
+          "id": "obj1",
+          "description": "Посетите Клуб Афисионадо",
+          "completed": false,
+          "type": "visit_location",
+          "locationId": "loc1"
+        },
+        {
+          "id": "obj2",
+          "description": "Приобретите свою первую сигару",
+          "completed": false,
+          "type": "purchase",
+          "itemId": "item1"
+        },
+        {
+          "id": "obj3",
+          "description": "Используйте предмет из инвентаря",
+          "completed": false,
+          "type": "use_item"
+        }
+      ],
+      "rewards": {
+        "experience": 100,
+        "gold": 50,
+        "items": []
+      },
+      "image": "quest-intro.jpg"
+    },
+    {
+      "_id": "quest2",
+      "title": "Тайны восточного базара",
+      "description": "Исследуйте восточный базар и узнайте секреты кальянного искусства.",
+      "level": 2,
+      "type": "exploration",
+      "status": "active",
+      "objectives": [
+        {
+          "id": "obj1",
+          "description": "Посетите Восточный базар",
+          "completed": false,
+          "type": "visit_location",
+          "locationId": "loc2"
+        },
+        {
+          "id": "obj2",
+          "description": "Поговорите с Мастером кальянов",
+          "completed": false,
+          "type": "talk_npc",
+          "npcId": "npc1"
+        },
+        {
+          "id": "obj3",
+          "description": "Приобретите кальянную колбу премиум-класса",
+          "completed": false,
+          "type": "purchase",
+          "itemId": "item3"
+        }
+      ],
+      "rewards": {
+        "experience": 200,
+        "gold": 100,
+        "items": ["item5"]
+      },
+      "image": "quest-bazaar.jpg"
+    },
+    {
+      "_id": "quest3",
+      "title": "Собрание коллекционеров",
+      "description": "Примите участие в эксклюзивном собрании коллекционеров редких сигар.",
+      "level": 3,
+      "type": "event",
+      "status": "active",
+      "objectives": [
+        {
+          "id": "obj1",
+          "description": "Получите приглашение на собрание",
+          "completed": false,
+          "type": "get_item",
+          "itemId": "item6"
+        },
+        {
+          "id": "obj2",
+          "description": "Приобретите редкую кубинскую сигару",
+          "completed": false,
+          "type": "purchase",
+          "itemId": "item7"
+        },
+        {
+          "id": "obj3",
+          "description": "Посетите собрание в VIP Лаундже",
+          "completed": false,
+          "type": "visit_location",
+          "locationId": "loc3"
+        }
+      ],
+      "rewards": {
+        "experience": 300,
+        "gold": 200,
+        "items": ["item8"]
+      },
+      "image": "quest-collectors.jpg"
+    },
+    {
+      "_id": "quest4",
+      "title": "Путь мастера миксов",
+      "description": "Изучите искусство создания уникальных миксов для кальяна.",
+      "level": 2,
+      "type": "crafting",
+      "status": "active",
+      "objectives": [
+        {
+          "id": "obj1",
+          "description": "Соберите 3 разных вида табака",
+          "completed": false,
+          "type": "collect_items",
+          "items": ["item9", "item10", "item11"],
+          "counts": [1, 1, 1],
+          "current": [0, 0, 0]
+        },
+        {
+          "id": "obj2",
+          "description": "Изучите рецепт микса 'Восточная ночь'",
+          "completed": false,
+          "type": "learn_recipe",
+          "recipeId": "recipe1"
+        },
+        {
+          "id": "obj3",
+          "description": "Создайте микс 'Восточная ночь'",
+          "completed": false,
+          "type": "craft_item",
+          "itemId": "item12"
+        }
+      ],
+      "rewards": {
+        "experience": 250,
+        "gold": 120,
+        "items": ["item13"]
+      },
+      "image": "quest-mixmaster.jpg"
+    }
+  ]
+}

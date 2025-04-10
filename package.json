@@ -1,0 +1,25 @@
+{
+  "name": "hookah-cigar-rpg",
+  "version": "1.0.0",
+  "description": "Luxury web-based RPG game for promoting hookah and cigar brands",
+  "main": "index.js",
+  "scripts": {
+    "client": "cd client && npm start",
+    "server": "cd server && npm start",
+    "admin": "cd admin && npm start",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "install-all": "npm install && cd client && npm install && cd ../server && npm install && cd ../admin && npm install"
+  },
+  "keywords": [
+    "rpg",
+    "game",
+    "hookah",
+    "cigar",
+    "web-game"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^8.2.0"
+  }
+}

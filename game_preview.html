@@ -1,0 +1,1806 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hookah & Cigar RPG - Preview</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --dark-bg: #121212;
+            --darker-bg: #0a0a0a;
+            --primary: #8b5a2b;
+            --gold-primary: #d4af37;
+            --gold-secondary: #ffd700;
+            --text-light: #f5f5f5;
+            --text-muted: #999;
+            --smoke: rgba(255, 255, 255, 0.05);
+        }
+        
+        * {
+            box-sizing: border-box;
+        }
+        
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--text-light);
+        }
+        
+        .app {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .navbar {
+            background-color: var(--darker-bg);
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            margin-left: 1.5rem;
+            transition: color 0.3s ease;
+            padding: 0.5rem 0;
+            position: relative;
+        }
+        
+        .nav-links a:hover {
+            color: var(--gold-primary);
+        }
+        
+        .nav-links a.active {
+            color: var(--gold-primary);
+        }
+        
+        .nav-links a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--gold-primary);
+        }
+        
+        .user-status {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .user-status .gold {
+            color: var(--gold-primary);
+        }
+        
+        .user-status .level {
+            color: var(--gold-secondary);
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--gold-primary);
+        }
+        
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            flex-grow: 1;
+        }
+        
+        .game-preview {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        h1 {
+            color: var(--gold-primary);
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+        
+        .feature-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .feature-item {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .feature-item:hover {
+            transform: translateY(-5px);
+            background-color: rgba(255, 255, 255, 0.08);
+        }
+        
+        .feature-item h3 {
+            color: var(--gold-secondary);
+            margin-bottom: 1rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background-color: var(--gold-primary);
+            color: #000;
+            font-weight: bold;
+            border-radius: 4px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            margin: 0.5rem;
+        }
+        
+        .btn:hover {
+            background-color: var(--gold-secondary);
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background-color: transparent;
+            border: 1px solid var(--gold-primary);
+            color: var(--gold-primary);
+        }
+        
+        .btn-secondary:hover {
+            background-color: rgba(212, 175, 55, 0.1);
+            color: var(--gold-secondary);
+        }
+        
+        .character-select {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .character-card {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .character-card:hover {
+            transform: translateY(-5px);
+            background-color: rgba(255, 255, 255, 0.08);
+        }
+        
+        .character-avatar {
+            width: 100px;
+            height: 100px;
+            background-color: #333;
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            border: 2px solid var(--gold-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .character-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .character-avatar i {
+            font-size: 2.5rem;
+            color: var(--gold-primary);
+        }
+        
+        .character-info h3 {
+            margin-bottom: 0.5rem;
+            color: var(--gold-secondary);
+        }
+        
+        .character-info p {
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+        
+        .game-progress {
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.1);
+            height: 8px;
+            border-radius: 4px;
+            margin: 1rem 0;
+            overflow: hidden;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background-color: var(--gold-primary);
+            width: 35%;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            background-color: var(--darker-bg);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-muted);
+        }
+        
+        /* Стили для карты мира */
+        .world-map-container {
+            margin: 2rem 0;
+        }
+
+        .map-wrapper {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .map-location {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            padding: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .map-location:hover {
+            transform: translateY(-5px);
+            background-color: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 10px 15px -5px rgba(0, 0, 0, 0.3);
+        }
+
+        .map-location.locked {
+            opacity: 0.7;
+            filter: grayscale(0.8);
+        }
+
+        .map-location.locked:hover {
+            transform: none;
+        }
+
+        .map-location i.fa-lock {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 1.5rem;
+            color: var(--text-muted);
+        }
+
+        .location-image {
+            height: 120px;
+            background-size: cover;
+            background-position: center;
+            margin-bottom: 1rem;
+            border-radius: 4px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .location-name {
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: var(--gold-primary);
+        }
+
+        .location-details {
+            background-color: rgba(255, 255, 255, 0.03);
+            border-radius: 8px;
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+
+        .location-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .location-header h2 {
+            margin: 0;
+            color: var(--gold-primary);
+        }
+
+        .location-image-large {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            margin-bottom: 1.5rem;
+            border-radius: 6px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .location-description {
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .activity-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .screen-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .screen-header h1 {
+            margin-bottom: 0.5rem;
+        }
+
+        .screen-header p {
+            color: var(--text-muted);
+        }
+        
+        /* Стили для инвентаря */
+        .inventory-filters {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            justify-content: center;
+        }
+
+        .filter-btn {
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-light);
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .filter-btn.active {
+            background-color: rgba(212, 175, 55, 0.2);
+            border-color: var(--gold-primary);
+            color: var(--gold-primary);
+        }
+
+        .inventory-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .inventory-item {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            padding: 1rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .inventory-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -5px rgba(0, 0, 0, 0.3);
+        }
+
+        .item-border {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 2px solid transparent;
+            border-radius: 8px;
+            pointer-events: none;
+        }
+
+        .item-quantity {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            font-weight: bold;
+            min-width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .item-name {
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: var(--gold-primary);
+        }
+
+        .item-type {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .item-value {
+            font-weight: bold;
+            color: var(--gold-secondary);
+            margin-bottom: 1rem;
+        }
+
+        .item-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .btn-small {
+            padding: 0.4rem 0.8rem;
+            font-size: 0.85rem;
+        }
+
+        .rarity-common .item-border {
+            border-color: #aaa;
+        }
+
+        .rarity-uncommon .item-border {
+            border-color: #5eb450;
+        }
+
+        .rarity-rare .item-border {
+            border-color: #4a69ff;
+        }
+
+        .rarity-epic .item-border {
+            border-color: #ae5fd9;
+        }
+
+        .rarity-legendary .item-border {
+            border-color: #d4af37;
+        }
+
+        .no-items {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-muted);
+            font-style: italic;
+        }
+        
+        /* Стили для квестов */
+        .quests-header {
+            margin-top: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--gold-primary);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 0.5rem;
+        }
+
+        .quest-card {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-left: 3px solid var(--gold-primary);
+            transition: all 0.3s ease;
+        }
+
+        .quest-card:hover {
+            background-color: rgba(255, 255, 255, 0.08);
+        }
+
+        .quest-card.completed {
+            border-left-color: #5eb450;
+            opacity: 0.7;
+        }
+
+        .quest-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.75rem;
+        }
+
+        .quest-name {
+            margin: 0;
+            color: var(--gold-secondary);
+        }
+
+        .quest-reward {
+            background-color: rgba(212, 175, 55, 0.1);
+            padding: 0.35rem 0.75rem;
+            border-radius: 4px;
+            color: var(--gold-primary);
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .quest-description {
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        .quest-status {
+            font-size: 0.9rem;
+        }
+
+        .completed-status {
+            color: #5eb450;
+        }
+
+        .active-status {
+            color: var(--text-muted);
+        }
+
+        .no-quests {
+            padding: 3rem;
+            text-align: center;
+            color: var(--text-muted);
+            font-style: italic;
+        }
+        
+        /* Стили для магазина */
+        .shop-filters {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            justify-content: center;
+        }
+
+        .shop-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .shop-item {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .shop-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -5px rgba(0, 0, 0, 0.3);
+        }
+
+        .shop-item-top {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+
+        .shop-item-name {
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: var(--gold-primary);
+            margin-right: 1rem;
+        }
+
+        .shop-item-rarity {
+            font-size: 0.8rem;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        .rarity-common .shop-item-rarity {
+            background-color: rgba(170, 170, 170, 0.2);
+            color: #aaa;
+        }
+
+        .rarity-uncommon .shop-item-rarity {
+            background-color: rgba(94, 180, 80, 0.2);
+            color: #5eb450;
+        }
+
+        .rarity-rare .shop-item-rarity {
+            background-color: rgba(74, 105, 255, 0.2);
+            color: #4a69ff;
+        }
+
+        .rarity-epic .shop-item-rarity {
+            background-color: rgba(174, 95, 217, 0.2);
+            color: #ae5fd9;
+        }
+
+        .rarity-legendary .shop-item-rarity {
+            background-color: rgba(212, 175, 55, 0.2);
+            color: #d4af37;
+        }
+
+        .shop-item-type {
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+        }
+
+        .shop-item-desc {
+            margin-bottom: 1.5rem;
+            line-height: 1.5;
+            flex-grow: 1;
+        }
+
+        .shop-item-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .shop-item-price {
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: var(--gold-secondary);
+        }
+
+        .not-enough-gold {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+        
+        .shop-status {
+            text-align: center;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            background-color: rgba(212, 175, 55, 0.1);
+            border-radius: 4px;
+            color: var(--gold-primary);
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="app">
+        <nav class="navbar">
+            <div class="logo"><i class="fas fa-smoking"></i> Hookah & Cigar RPG</div>
+            <div class="nav-links">
+                <a href="#" data-screen="home" class="active" onclick="showSection('home')">Главная</a>
+                <a href="#" data-screen="characters" onclick="showSection('characters')">Персонажи</a>
+                <a href="#" data-screen="map" onclick="showSection('map')">Карта</a>
+                <a href="#" data-screen="inventory" onclick="showSection('inventory')">Инвентарь</a>
+                <a href="#" data-screen="quests" onclick="showSection('quests')">Задания</a>
+                <a href="#" data-screen="shop" onclick="showSection('shop')">Магазин</a>
+            </div>
+            <div class="user-status">
+                <span class="gold"><i class="fas fa-coins"></i> <span id="player-gold">1000</span></span>
+                <span class="level"><i class="fas fa-star"></i> <span id="player-level">1</span></span>
+            </div>
+        </nav>
+        
+        <main class="main-content">
+            <!-- Главный экран (домашний) -->
+            <div id="home-screen" class="screen-content game-preview">
+                <h1>Добро пожаловать в мир Hookah & Cigar RPG</h1>
+                <p>Погрузитесь в атмосферу роскоши, изысканных ароматов и захватывающих приключений. Создайте своего персонажа, развивайте навыки и станьте легендой в мире кальянов и сигар.</p>
+                
+                <div class="feature-list">
+                    <div class="feature-item">
+                        <h3>Создание персонажа</h3>
+                        <p>Выберите внешность, имя и предысторию вашего будущего мастера</p>
+                    </div>
+                    <div class="feature-item">
+                        <h3>Исследование локаций</h3>
+                        <p>Посетите эксклюзивные лаунжи, клубы и тайные места по всему миру</p>
+                    </div>
+                    <div class="feature-item">
+                        <h3>Коллекция сигар и кальянов</h3>
+                        <p>Собирайте редкие предметы и совершенствуйте свою коллекцию</p>
+                    </div>
+                </div>
+                
+                <h2>Ваши персонажи</h2>
+                <div class="character-select">
+                    <div class="character-card" data-character="new">
+                        <div class="character-avatar">
+                            <i class="fas fa-plus"></i>
+                        </div>
+                        <div class="character-info">
+                            <h3>Создать нового</h3>
+                            <p>Начните новое приключение</p>
+                        </div>
+                    </div>
+                    
+                    <div class="character-card" data-character="alex">
+                        <div class="character-avatar">
+                            <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100'><rect width='100' height='100' fill='%23333'/><circle cx='50' cy='40' r='20' fill='%23555'/><rect x='30' y='70' width='40' height='30' rx='5' fill='%23555'/></svg>" alt="Avatar">
+                        </div>
+                        <div class="character-info">
+                            <h3>Александр</h3>
+                            <p>Уровень 12 • Эксперт</p>
+                            <div class="game-progress">
+                                <div class="progress-bar"></div>
+                            </div>
+                            <p>35% к следующему уровню</p>
+                        </div>
+                    </div>
+                    
+                    <div class="character-card" data-character="victoria">
+                        <div class="character-avatar">
+                            <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100'><rect width='100' height='100' fill='%23333'/><circle cx='50' cy='40' r='20' fill='%23777'/><path d='M 30 70 Q 50 60 70 70 L 70 100 L 30 100 Z' fill='%23777'/></svg>" alt="Avatar">
+                        </div>
+                        <div class="character-info">
+                            <h3>Виктория</h3>
+                            <p>Уровень 8 • Продвинутый</p>
+                            <div class="game-progress">
+                                <div class="progress-bar" style="width: 60%"></div>
+                            </div>
+                            <p>60% к следующему уровню</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <button class="btn" onclick="alert('Эта функция будет доступна в полной версии игры')">Начать игру</button>
+                    <button class="btn btn-secondary" onclick="alert('Эта функция будет доступна в полной версии игры')">Просмотр рейтинга</button>
+                </div>
+            </div>
+            </div><!-- Конец home-screen -->
+            
+            <!-- Экран карты мира -->
+            <div id="map-screen" class="screen-content" style="display: none;">
+                <div class="screen-header">
+                    <h1>Карта мира</h1>
+                    <p>Исследуйте различные локации, выполняйте квесты и находите редкие предметы</p>
+                </div>
+                
+                <div class="world-map-container">
+                    <!-- Контейнер для карты, который будет заполнен динамически -->
+                </div>
+                
+                <div class="location-details" style="display: none;">
+                    <!-- Детали локации будут отображаться здесь при выборе локации -->
+                </div>
+            </div><!-- Конец map-screen -->
+            
+            <!-- Экран инвентаря -->
+            <div id="inventory-screen" class="screen-content" style="display: none;">
+                <div class="screen-header">
+                    <h1>Инвентарь</h1>
+                    <p>Управляйте своей коллекцией предметов, кальянов и сигар</p>
+                </div>
+                
+                <div class="inventory-container">
+                    <!-- Содержимое инвентаря будет заполнено динамически -->
+                </div>
+            </div><!-- Конец inventory-screen -->
+            
+            <!-- Экран квестов -->
+            <div id="quests-screen" class="screen-content" style="display: none;">
+                <div class="screen-header">
+                    <h1>Задания</h1>
+                    <p>Выполняйте квесты, чтобы получать награды и открывать новые возможности</p>
+                </div>
+                
+                <div class="quests-container">
+                    <!-- Список квестов будет заполнен динамически -->
+                </div>
+            </div><!-- Конец quests-screen -->
+            
+            <!-- Экран магазина -->
+            <div id="shop-screen" class="screen-content" style="display: none;">
+                <div class="screen-header">
+                    <h1>Магазин</h1>
+                    <p>Приобретайте редкие предметы, кальяны и сигары</p>
+                </div>
+                
+                <div class="shop-container">
+                    <!-- Товары магазина будут заполнены динамически -->
+                </div>
+            </div><!-- Конец shop-screen -->
+        </main>
+        
+        <footer>
+            <p>Hookah & Cigar RPG © 2025 | Демо-версия</p>
+        </footer>
+    </div>
+    
+    <script>
+        // Game state object
+        const gameState = {
+            currentScreen: 'home',
+            selectedCharacter: null,
+            player: {
+                gold: 1000,
+                experience: 0,
+                level: 1,
+                items: [
+                    { id: 'cigar1', name: 'Кубинская сигара', type: 'cigar', rarity: 'common', value: 100, quantity: 2 },
+                    { id: 'hookah1', name: 'Традиционный кальян', type: 'hookah', rarity: 'common', value: 200, quantity: 1 },
+                    { id: 'accessory1', name: 'Золотой мундштук', type: 'accessory', rarity: 'rare', value: 350, quantity: 1 }
+                ],
+                quests: [
+                    { id: 'quest1', name: 'Знакомство с клубом', description: 'Посетите лаунж "Золотой дым" и познакомьтесь с управляющим', completed: false, reward: 150 },
+                    { id: 'quest2', name: 'Первая покупка', description: 'Приобретите любой товар в магазине', completed: false, reward: 100 }
+                ],
+                stats: {
+                    strength: 5,
+                    charisma: 8,
+                    knowledge: 6
+                }
+            },
+            world: {
+                locations: [
+                    { 
+                        id: 'gold_smoke_lounge', 
+                        name: 'Лаунж "Золотой дым"', 
+                        description: 'Элитный лаунж в центре города, где собирается высшее общество. Здесь вы можете насладиться изысканными кальянами и познакомиться с влиятельными персонами.',
+                        image: 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="100"><rect width="200" height="100" fill="%23222"/><rect x="20" y="30" width="160" height="50" fill="%23333"/><rect x="30" y="40" width="30" height="30" fill="%23444"/><rect x="80" y="45" width="40" height="25" fill="%23444"/><rect x="140" y="40" width="30" height="30" fill="%23444"/><circle cx="45" cy="70" r="5" fill="%23d4af37"/><circle cx="100" cy="70" r="5" fill="%23d4af37"/><circle cx="155" cy="70" r="5" fill="%23d4af37"/></svg>',
+                        unlocked: true
+                    },
+                    { 
+                        id: 'cigar_club', 
+                        name: 'Сигарный клуб', 
+                        description: 'Закрытый клуб для ценителей сигар, где проводятся дегустации и обсуждаются тонкости табачного искусства. Доступ открывается только после знакомства с управляющим.',
+                        image: 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="100"><rect width="200" height="100" fill="%23221"/><rect x="30" y="20" width="140" height="60" fill="%23332"/><rect x="40" y="30" width="120" height="40" fill="%23443"/><rect x="50" y="40" width="100" height="20" fill="%23554"/><path d="M 60 45 L 140 45" stroke="%23d4af37" stroke-width="2"/><circle cx="70" cy="50" r="3" fill="%23d4af37"/><circle cx="120" cy="50" r="3" fill="%23d4af37"/></svg>',
+                        unlocked: false
+                    },
+                    { 
+                        id: 'luxury_market', 
+                        name: 'Рынок роскоши', 
+                        description: 'Торговая площадь, где можно найти редкие и экзотические товары со всего мира. Здесь предлагают самые качественные табачные изделия и аксессуары.',
+                        image: 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="100"><rect width="200" height="100" fill="%23212"/><path d="M 50 30 L 100 10 L 150 30 L 150 70 L 100 90 L 50 70 Z" fill="%23323"/><path d="M 70 40 L 90 30 L 110 40 L 110 60 L 90 70 L 70 60 Z" fill="%23434"/><path d="M 120 40 L 130 35 L 140 40 L 140 50 L 130 55 L 120 50 Z" fill="%23434"/><circle cx="80" cy="50" r="5" fill="%23d4af37"/><circle cx="130" cy="45" r="3" fill="%23d4af37"/></svg>',
+                        unlocked: true
+                    }
+                ]
+            }
+        };
+        
+        // Section display management
+        function showSection(sectionName) {
+            // Hide all main content sections
+            document.querySelectorAll('.screen-content').forEach(screen => {
+                screen.style.display = 'none';
+            });
+            
+            // Show the requested section
+            const targetSection = document.getElementById(sectionName + '-screen');
+            if (targetSection) {
+                targetSection.style.display = 'block';
+                gameState.currentScreen = sectionName;
+                
+                // Update navigation highlighting
+                document.querySelectorAll('.nav-links a').forEach(link => {
+                    link.classList.remove('active');
+                });
+                const activeLink = document.querySelector(`.nav-links a[data-screen="${sectionName}"]`);
+                if (activeLink) activeLink.classList.add('active');
+                
+                // Special handling for certain screens
+                if (sectionName === 'map') {
+                    renderWorldMap();
+                } else if (sectionName === 'inventory') {
+                    renderInventory();
+                } else if (sectionName === 'quests') {
+                    renderQuests();
+                } else if (sectionName === 'shop') {
+                    renderShop();
+                }
+            } else {
+                console.error('Экран не найден:', sectionName);
+            }
+        }
+        
+        // Character selection interactivity
+        document.querySelectorAll('.character-card').forEach(card => {
+            card.addEventListener('click', function() {
+                const characterId = this.getAttribute('data-character');
+                
+                if (characterId === 'new') {
+                    showCreateCharacterModal();
+                } else if (characterId === 'alex') {
+                    showGameStartModal('Александр', 12);
+                } else if (characterId === 'victoria') {
+                    showGameStartModal('Виктория', 8);
+                }
+            });
+        });
+        
+        // Show character creation modal
+        function showCreateCharacterModal() {
+            const modal = document.createElement('div');
+            modal.className = 'game-modal';
+            modal.innerHTML = `
+                <div class="modal-content">
+                    <h2>Создание персонажа</h2>
+                    <div class="form-group">
+                        <label>Имя персонажа</label>
+                        <input type="text" placeholder="Введите имя" id="character-name">
+                    </div>
+                    <div class="avatar-selection">
+                        <h3>Выберите аватар</h3>
+                        <div class="avatar-options">
+                            <div class="avatar-option selected"><img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100'><rect width='100' height='100' fill='%23333'/><circle cx='50' cy='40' r='20' fill='%23555'/><rect x='30' y='70' width='40' height='30' rx='5' fill='%23555'/></svg>"></div>
+                            <div class="avatar-option"><img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100'><rect width='100' height='100' fill='%23333'/><circle cx='50' cy='40' r='20' fill='%23777'/><path d='M 30 70 Q 50 60 70 70 L 70 100 L 30 100 Z' fill='%23777'/></svg>"></div>
+                        </div>
+                    </div>
+                    <div class="button-group">
+                        <button class="btn btn-secondary" onclick="closeModal()">Отмена</button>
+                        <button class="btn" onclick="characterCreated()">Создать</button>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+            
+            // Add modal styles
+            const style = document.createElement('style');
+            style.textContent = `
+                .game-modal {
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background-color: rgba(0, 0, 0, 0.8);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    z-index: 1000;
+                }
+                .modal-content {
+                    background-color: var(--darker-bg);
+                    border: 1px solid var(--gold-primary);
+                    border-radius: 8px;
+                    padding: 2rem;
+                    width: 90%;
+                    max-width: 500px;
+                }
+                .form-group {
+                    margin-bottom: 1.5rem;
+                }
+                .form-group label {
+                    display: block;
+                    margin-bottom: 0.5rem;
+                }
+                .form-group input {
+                    width: 100%;
+                    padding: 0.75rem;
+                    background-color: rgba(255, 255, 255, 0.1);
+                    border: 1px solid rgba(255, 255, 255, 0.2);
+                    border-radius: 4px;
+                    color: var(--text-light);
+                }
+                .avatar-selection {
+                    margin-bottom: 1.5rem;
+                }
+                .avatar-options {
+                    display: flex;
+                    gap: 1rem;
+                    margin-top: 1rem;
+                }
+                .avatar-option {
+                    width: 80px;
+                    height: 80px;
+                    border-radius: 50%;
+                    overflow: hidden;
+                    border: 2px solid transparent;
+                    cursor: pointer;
+                }
+                .avatar-option.selected {
+                    border-color: var(--gold-primary);
+                }
+                .avatar-option img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                }
+                .button-group {
+                    display: flex;
+                    justify-content: flex-end;
+                    gap: 1rem;
+                }
+            `;
+            document.head.appendChild(style);
+            
+            // Add avatar selection functionality
+            document.querySelectorAll('.avatar-option').forEach(option => {
+                option.addEventListener('click', function() {
+                    document.querySelectorAll('.avatar-option').forEach(opt => opt.classList.remove('selected'));
+                    this.classList.add('selected');
+                });
+            });
+        }
+        
+        // Show game start modal
+        function showGameStartModal(name, level) {
+            const modal = document.createElement('div');
+            modal.className = 'game-modal';
+            modal.innerHTML = `
+                <div class="modal-content game-start-modal">
+                    <h2>Начать игру</h2>
+                    <div class="character-summary">
+                        <h3>${name}</h3>
+                        <p>Уровень ${level}</p>
+                    </div>
+                    <div class="character-stats">
+                        <div class="stat">
+                            <span class="stat-name">Сила</span>
+                            <div class="stat-bar"><div style="width: ${Math.floor(Math.random() * 50) + 30}%"></div></div>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-name">Харизма</span>
+                            <div class="stat-bar"><div style="width: ${Math.floor(Math.random() * 50) + 30}%"></div></div>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-name">Знания</span>
+                            <div class="stat-bar"><div style="width: ${Math.floor(Math.random() * 50) + 30}%"></div></div>
+                        </div>
+                    </div>
+                    <div class="location-select">
+                        <h3>Выберите локацию</h3>
+                        <div class="location-options">
+                            <div class="location-option">
+                                <h4>Лаунж "Золотой дым"</h4>
+                                <p>Элитный лаунж в центре города</p>
+                            </div>
+                            <div class="location-option">
+                                <h4>Сигарный клуб</h4>
+                                <p>Закрытый клуб для ценителей</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="button-group">
+                        <button class="btn btn-secondary" onclick="closeModal()">Назад</button>
+                        <button class="btn" onclick="gameStarted()">Отправиться</button>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+            
+            // Add modal styles
+            const style = document.createElement('style');
+            style.textContent = `
+                .game-start-modal .character-summary {
+                    text-align: center;
+                    margin-bottom: 1.5rem;
+                }
+                .character-stats {
+                    margin-bottom: 1.5rem;
+                }
+                .stat {
+                    margin-bottom: 0.75rem;
+                }
+                .stat-name {
+                    display: inline-block;
+                    width: 80px;
+                }
+                .stat-bar {
+                    display: inline-block;
+                    width: calc(100% - 90px);
+                    height: 8px;
+                    background-color: rgba(255, 255, 255, 0.1);
+                    border-radius: 4px;
+                    overflow: hidden;
+                }
+                .stat-bar > div {
+                    height: 100%;
+                    background-color: var(--gold-primary);
+                }
+                .location-options {
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+                    gap: 1rem;
+                    margin-top: 1rem;
+                }
+                .location-option {
+                    background-color: rgba(255, 255, 255, 0.05);
+                    border: 1px solid rgba(255, 255, 255, 0.1);
+                    border-radius: 4px;
+                    padding: 1rem;
+                    cursor: pointer;
+                    transition: all 0.3s ease;
+                }
+                .location-option:hover {
+                    background-color: rgba(255, 255, 255, 0.08);
+                    border-color: var(--gold-primary);
+                }
+                .location-option h4 {
+                    margin: 0 0 0.5rem 0;
+                    color: var(--gold-secondary);
+                }
+                .location-option p {
+                    margin: 0;
+                    font-size: 0.9rem;
+                    color: var(--text-muted);
+                }
+            `;
+            document.head.appendChild(style);
+            
+            // Add location selection functionality
+            document.querySelectorAll('.location-option').forEach(option => {
+                option.addEventListener('click', function() {
+                    document.querySelectorAll('.location-option').forEach(opt => 
+                        opt.style.borderColor = 'rgba(255, 255, 255, 0.1)');
+                    this.style.borderColor = 'var(--gold-primary)';
+                });
+            });
+        }
+        
+        // Close modal function
+        function closeModal() {
+            const modal = document.querySelector('.game-modal');
+            if (modal) {
+                modal.remove();
+            }
+        }
+        
+        // Character created function
+        function characterCreated() {
+            const nameInput = document.getElementById('character-name');
+            const name = nameInput?.value || 'Новый персонаж';
+            
+            if (!name.trim()) {
+                alert('Пожалуйста, введите имя персонажа');
+                return;
+            }
+            
+            closeModal();
+            alert(`Персонаж ${name} создан! В полной версии игры вы сможете начать приключение.`);
+        }
+        
+        // Game started function
+        function gameStarted() {
+            closeModal();
+            alert('Игра начата! В полной версии вы сможете продолжить приключение.');
+        }
+        // Функции для карты мира
+function renderWorldMap() {
+    const mapContainer = document.querySelector('.world-map-container');
+    mapContainer.innerHTML = '';
+    
+    // Создаем карту с локациями
+    const mapWrapper = document.createElement('div');
+    mapWrapper.className = 'map-wrapper';
+    
+    // Добавляем каждую локацию на карту
+    gameState.world.locations.forEach(location => {
+        const locationItem = document.createElement('div');
+        locationItem.className = 'map-location' + (location.unlocked ? '' : ' locked');
+        locationItem.setAttribute('data-location-id', location.id);
+        
+        // Создаем изображение локации
+        const locationImage = document.createElement('div');
+        locationImage.className = 'location-image';
+        locationImage.style.backgroundImage = `url('${location.image}')`;
+        
+        // Добавляем название локации
+        const locationName = document.createElement('div');
+        locationName.className = 'location-name';
+        locationName.textContent = location.name;
+        
+        // Добавляем индикатор блокировки, если локация заблокирована
+        if (!location.unlocked) {
+            const lockIcon = document.createElement('i');
+            lockIcon.className = 'fas fa-lock';
+            locationItem.appendChild(lockIcon);
+        }
+        
+        locationItem.appendChild(locationImage);
+        locationItem.appendChild(locationName);
+        mapWrapper.appendChild(locationItem);
+        
+        // Добавляем обработчик клика для локации
+        if (location.unlocked) {
+            locationItem.addEventListener('click', () => showLocationDetails(location.id));
+        } else {
+            locationItem.addEventListener('click', () => alert('Эта локация пока заблокирована. Выполните необходимые квесты, чтобы разблокировать её.'));
+        }
+    });
+    
+    mapContainer.appendChild(mapWrapper);
+}
+
+// Функция для отображения деталей локации
+function showLocationDetails(locationId) {
+    const location = gameState.world.locations.find(loc => loc.id === locationId);
+    if (!location) return;
+    
+    const detailsContainer = document.querySelector('.location-details');
+    detailsContainer.style.display = 'block';
+    
+    detailsContainer.innerHTML = `
+        <div class="location-header">
+            <h2>${location.name}</h2>
+            <button class="btn btn-primary location-visit-btn">Посетить</button>
+        </div>
+        <div class="location-image-large" style="background-image: url('${location.image}')"></div>
+        <p class="location-description">${location.description}</p>
+        <div class="location-activities">
+            <h3>Доступные действия:</h3>
+            <div class="activity-buttons">
+                <button class="btn" onclick="startActivity('explore', '${locationId}')">Исследовать</button>
+                <button class="btn" onclick="startActivity('talk', '${locationId}')">Общаться</button>
+                <button class="btn" onclick="startActivity('trade', '${locationId}')">Торговать</button>
+            </div>
+        </div>
+    `;
+    
+    // Добавляем обработчик для кнопки посещения
+    const visitButton = detailsContainer.querySelector('.location-visit-btn');
+    visitButton.addEventListener('click', () => visitLocation(locationId));
+}
+
+// Функция для посещения локации
+function visitLocation(locationId) {
+    alert(`Вы посетили локацию: ${gameState.world.locations.find(loc => loc.id === locationId).name}`);
+    
+    // Проверяем, есть ли связанные квесты
+    const relatedQuest = gameState.player.quests.find(quest => 
+        quest.id === 'quest1' && locationId === 'gold_smoke_lounge' && !quest.completed
+    );
+    
+    if (relatedQuest) {
+        relatedQuest.completed = true;
+        gameState.player.gold += relatedQuest.reward;
+        document.getElementById('player-gold').textContent = gameState.player.gold;
+        
+        alert(`Квест "${relatedQuest.name}" выполнен! Вы получили ${relatedQuest.reward} золота.`);
+        
+        // Разблокируем Сигарный клуб после выполнения первого квеста
+        const cigarClub = gameState.world.locations.find(loc => loc.id === 'cigar_club');
+        if (cigarClub) {
+            cigarClub.unlocked = true;
+            alert('Вы разблокировали новую локацию: Сигарный клуб!');
+            renderWorldMap(); // Обновляем карту
+        }
+        
+        // Обновляем отображение квестов, если экран квестов активен
+        if (gameState.currentScreen === 'quests') {
+            renderQuests();
+        }
+    }
+}
+
+// Функция для запуска активности в локации
+function startActivity(activityType, locationId) {
+    const location = gameState.world.locations.find(loc => loc.id === locationId);
+    
+    switch(activityType) {
+        case 'explore':
+            exploreLocation(location);
+            break;
+        case 'talk':
+            talkInLocation(location);
+            break;
+        case 'trade':
+            tradeInLocation(location);
+            break;
+    }
+}
+
+// Функция исследования локации
+function exploreLocation(location) {
+    // Генерируем случайное событие
+    const events = [
+        'Вы нашли редкую сигару!',
+        'Вы познакомились с интересным человеком.',
+        'Вы обнаружили тайный уголок с эксклюзивными предложениями.',
+        'Ничего особенного не произошло.'
+    ];
+    
+    const randomEvent = events[Math.floor(Math.random() * events.length)];
+    
+    // Если это удачное событие, добавляем предмет в инвентарь
+    if (randomEvent === events[0]) {
+        const rareItem = {
+            id: 'rare_cigar_' + Date.now(),
+            name: 'Редкая ' + location.name + ' сигара',
+            type: 'cigar',
+            rarity: 'rare',
+            value: 300,
+            quantity: 1
+        };
+        
+        gameState.player.items.push(rareItem);
+        alert(randomEvent + ' ' + rareItem.name + ' добавлена в ваш инвентарь.');
+        
+        // Обновляем инвентарь, если открыт соответствующий экран
+        if (gameState.currentScreen === 'inventory') {
+            renderInventory();
+        }
+    } else {
+        alert(randomEvent);
+    }
+}
+
+// Функция общения в локации
+function talkInLocation(location) {
+    const dialogs = {
+        'gold_smoke_lounge': [
+            'Управляющий: "Добро пожаловать в наш лаунж! У нас самый богатый выбор кальянов в городе."',
+            'Посетитель: "Слышали о новом сигарном клубе? Говорят, там собирается настоящая элита."',
+            'Бармен: "Могу предложить вам особый коктейль, который прекрасно сочетается с нашими кальянами."'
+        ],
+        'cigar_club': [
+            'Управляющий клуба: "Мы рады видеть настоящего ценителя в нашем заведении."',
+            'Старый джентльмен: "В молодости я коллекционировал кубинские сигары. У меня была коллекция на целое состояние!"',
+            'Эксперт по сигарам: "Обратите внимание на текстуру и аромат этой сигары. Она выдержана по особой технологии."'
+        ],
+        'luxury_market': [
+            'Продавец: "У меня есть особый товар для постоянных клиентов. Заинтересованы?"',
+            'Торговец: "Эти кальяны привезены из далеких стран, каждый имеет свою историю."',
+            'Коллекционер: "Я ищу редкую серию сигар. Не видели ли вы их в своих путешествиях?"'
+        ]
+    };
+    
+    // Выбираем случайный диалог для данной локации
+    const locationDialogs = dialogs[location.id] || ['Здесь пока никого нет для разговора.'];
+    const randomDialog = locationDialogs[Math.floor(Math.random() * locationDialogs.length)];
+    
+    alert(randomDialog);
+}
+
+// Функция торговли в локации
+function tradeInLocation(location) {
+    if (location.id === 'luxury_market') {
+        alert('Вы переходите в режим торговли. Будет открыт магазин данной локации.');
+        showSection('shop');
+    } else {
+        alert('В этой локации пока нет торговых точек. Посетите Рынок роскоши для торговли.');
+    }
+}
+
+// Функции для инвентаря
+function renderInventory() {
+    const inventoryContainer = document.querySelector('.inventory-container');
+    inventoryContainer.innerHTML = '';
+    
+    // Создаем фильтры для инвентаря
+    const filterBar = document.createElement('div');
+    filterBar.className = 'inventory-filters';
+    filterBar.innerHTML = `
+        <button class="filter-btn active" data-filter="all">Все</button>
+        <button class="filter-btn" data-filter="cigar">Сигары</button>
+        <button class="filter-btn" data-filter="hookah">Кальяны</button>
+        <button class="filter-btn" data-filter="accessory">Аксессуары</button>
+    `;
+    
+    // Добавляем контейнер для предметов
+    const itemsGrid = document.createElement('div');
+    itemsGrid.className = 'inventory-grid';
+    
+    // Добавляем предметы в инвентарь
+    renderInventoryItems(itemsGrid, 'all');
+    
+    inventoryContainer.appendChild(filterBar);
+    inventoryContainer.appendChild(itemsGrid);
+    
+    // Добавляем обработчики для фильтров
+    filterBar.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            filterBar.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            renderInventoryItems(itemsGrid, btn.getAttribute('data-filter'));
+        });
+    });
+}
+
+// Функция рендеринга предметов инвентаря с фильтрацией
+function renderInventoryItems(container, filter) {
+    container.innerHTML = '';
+    
+    // Фильтруем предметы
+    const filteredItems = gameState.player.items.filter(item => 
+        filter === 'all' || item.type === filter
+    );
+    
+    if (filteredItems.length === 0) {
+        container.innerHTML = '<div class="no-items">У вас пока нет предметов этого типа.</div>';
+        return;
+    }
+    
+    // Добавляем каждый предмет
+    filteredItems.forEach(item => {
+        const itemCard = document.createElement('div');
+        itemCard.className = `inventory-item rarity-${item.rarity}`;
+        itemCard.setAttribute('data-item-id', item.id);
+        
+        // Цвета для разных редкостей
+        const rarityColors = {
+            common: '#aaa',
+            uncommon: '#5eb450',
+            rare: '#4a69ff',
+            epic: '#ae5fd9',
+            legendary: '#d4af37'
+        };
+        
+        itemCard.innerHTML = `
+            <div class="item-border" style="border-color: ${rarityColors[item.rarity] || '#aaa'}"></div>
+            <div class="item-quantity">${item.quantity > 1 ? item.quantity : ''}</div>
+            <div class="item-name">${item.name}</div>
+            <div class="item-type">${getItemTypeText(item.type)}</div>
+            <div class="item-value"><i class="fas fa-coins"></i> ${item.value}</div>
+            <div class="item-actions">
+                <button class="btn btn-small" onclick="useItem('${item.id}')">Использовать</button>
+                <button class="btn btn-small btn-secondary" onclick="sellItem('${item.id}')">Продать</button>
+            </div>
+        `;
+        
+        container.appendChild(itemCard);
+    });
+}
+
+// Функция получения текстового названия типа предмета
+function getItemTypeText(type) {
+    const types = {
+        cigar: 'Сигара',
+        hookah: 'Кальян',
+        accessory: 'Аксессуар'
+    };
+    return types[type] || type;
+}
+
+// Функция использования предмета
+function useItem(itemId) {
+    const item = gameState.player.items.find(i => i.id === itemId);
+    if (!item) return;
+    
+    // Разная логика использования для разных типов предметов
+    if (item.type === 'cigar') {
+        alert(`Вы наслаждаетесь ${item.name}. Ваша харизма временно повышена!`);
+        gameState.player.stats.charisma += 2;
+        setTimeout(() => {
+            gameState.player.stats.charisma -= 2;
+            alert('Эффект от сигары прошел.');
+        }, 60000); // Эффект на 1 минуту
+    } else if (item.type === 'hookah') {
+        alert(`Вы используете ${item.name}. Все гости восхищены!`);
+    } else if (item.type === 'accessory') {
+        alert(`Вы оснастили ${item.name}. Это улучшает ваш образ.`);
+    }
+    
+    // Если предмет одноразовый, уменьшаем количество
+    if (item.type === 'cigar') {
+        item.quantity--;
+        if (item.quantity <= 0) {
+            // Удаляем предмет, если количество стало 0
+            gameState.player.items = gameState.player.items.filter(i => i.id !== itemId);
+        }
+        renderInventory(); // Обновляем инвентарь
+    }
+}
+
+// Функция продажи предмета
+function sellItem(itemId) {
+    const itemIndex = gameState.player.items.findIndex(i => i.id === itemId);
+    if (itemIndex === -1) return;
+    
+    const item = gameState.player.items[itemIndex];
+    
+    if (confirm(`Вы уверены, что хотите продать ${item.name} за ${item.value} золота?`)) {
+        gameState.player.gold += item.value;
+        document.getElementById('player-gold').textContent = gameState.player.gold;
+        document.querySelector('.shop-balance').textContent = gameState.player.gold;
+        
+        // Уменьшаем количество предмета
+        item.quantity--;
+        if (item.quantity <= 0) {
+            // Удаляем предмет, если количество стало 0
+            gameState.player.items.splice(itemIndex, 1);
+        }
+        
+        alert(`Вы продали ${item.name} за ${item.value} золота.`);
+        renderInventory(); // Обновляем инвентарь
+        
+        // Проверяем квест на первую покупку/продажу
+        const questToUpdate = gameState.player.quests.find(q => q.id === 'quest2' && !q.completed);
+        if (questToUpdate) {
+            questToUpdate.completed = true;
+            gameState.player.gold += questToUpdate.reward;
+            document.getElementById('player-gold').textContent = gameState.player.gold;
+            document.querySelector('.shop-balance').textContent = gameState.player.gold;
+            
+            alert(`Квест "${questToUpdate.name}" выполнен! Вы получили ${questToUpdate.reward} золота.`);
+            
+            // Обновляем отображение квестов, если экран квестов активен
+            if (gameState.currentScreen === 'quests') {
+                renderQuests();
+            }
+        }
+    }
+}
+
+// Функции для квестов
+function renderQuests() {
+    const questsContainer = document.querySelector('.quests-container');
+    questsContainer.innerHTML = '';
+    
+    // Разделяем квесты на активные и выполненные
+    const activeQuests = gameState.player.quests.filter(quest => !quest.completed);
+    const completedQuests = gameState.player.quests.filter(quest => quest.completed);
+    
+    // Добавляем заголовок для активных квестов
+    if (activeQuests.length > 0) {
+        const activeHeader = document.createElement('h2');
+        activeHeader.className = 'quests-header';
+        activeHeader.textContent = 'Активные задания';
+        questsContainer.appendChild(activeHeader);
+        
+        // Добавляем активные квесты
+        activeQuests.forEach(quest => {
+            const questCard = createQuestCard(quest);
+            questsContainer.appendChild(questCard);
+        });
+    }
+    
+    // Добавляем заголовок для выполненных квестов
+    if (completedQuests.length > 0) {
+        const completedHeader = document.createElement('h2');
+        completedHeader.className = 'quests-header';
+        completedHeader.textContent = 'Выполненные задания';
+        questsContainer.appendChild(completedHeader);
+        
+        // Добавляем выполненные квесты
+        completedQuests.forEach(quest => {
+            const questCard = createQuestCard(quest);
+            questsContainer.appendChild(questCard);
+        });
+    }
+    
+    // Если нет квестов
+    if (activeQuests.length === 0 && completedQuests.length === 0) {
+        questsContainer.innerHTML = '<div class="no-quests">У вас пока нет заданий. Изучайте мир, чтобы получить новые задания.</div>';
+    }
+}
+
+// Функция создания карточки квеста
+function createQuestCard(quest) {
+    const questCard = document.createElement('div');
+    questCard.className = 'quest-card' + (quest.completed ? ' completed' : '');
+    
+    questCard.innerHTML = `
+        <div class="quest-header">
+            <h3 class="quest-name">${quest.name}</h3>
+            <div class="quest-reward"><i class="fas fa-coins"></i> ${quest.reward}</div>
+        </div>
+        <div class="quest-description">${quest.description}</div>
+        <div class="quest-status">
+            ${quest.completed 
+                ? '<span class="completed-status"><i class="fas fa-check-circle"></i> Выполнено</span>' 
+                : '<span class="active-status"><i class="fas fa-hourglass-half"></i> В процессе</span>'}
+        </div>
+    `;
+    
+    return questCard;
+}
+
+// Товары магазина
+const shopItems = [
+    { id: 'shop_cigar_1', name: 'Кубинская Cohiba', type: 'cigar', rarity: 'rare', value: 250, description: 'Элитная сигара с богатым ароматом и длительным послевкусием.' },
+    { id: 'shop_cigar_2', name: 'Доминиканская Arturo Fuente', type: 'cigar', rarity: 'uncommon', value: 150, description: 'Хорошо сбалансированная сигара с нотками дерева и специй.' },
+    { id: 'shop_hookah_1', name: 'Персидский кальян', type: 'hookah', rarity: 'rare', value: 400, description: 'Искусно изготовленный кальян с богатой историей. Произведен в Персии по древним технологиям.' },
+    { id: 'shop_hookah_2', name: 'Современный кальян', type: 'hookah', rarity: 'common', value: 200, description: 'Функциональный кальян с современным дизайном, подходит для повседневного использования.' },
+    { id: 'shop_accessory_1', name: 'Серебряный мундштук', type: 'accessory', rarity: 'uncommon', value: 120, description: 'Элегантный мундштук из серебра высокой пробы.' },
+    { id: 'shop_accessory_2', name: 'Набор для курения', type: 'accessory', rarity: 'uncommon', value: 180, description: 'Комплексный набор включает в себя все необходимые аксессуары для ценителя.' }
+];
+
+// Функция рендеринга магазина
+function renderShop() {
+    // Обновляем баланс игрока в магазине
+    document.querySelector('.shop-balance').textContent = gameState.player.gold;
+    
+    const shopGrid = document.querySelector('.shop-grid');
+    shopGrid.innerHTML = '';
+    
+    // Получаем активный фильтр
+    const activeFilter = document.querySelector('.shop-filters .filter-btn.active');
+    const filter = activeFilter ? activeFilter.getAttribute('data-filter') : 'all';
+    
+    // Фильтруем товары
+    const filteredItems = filter === 'all' 
+        ? shopItems 
+        : shopItems.filter(item => item.type === filter);
+    
+    // Добавляем каждый товар в магазин
+    filteredItems.forEach(item => {
+        const shopItem = document.createElement('div');
+        shopItem.className = `shop-item rarity-${item.rarity}`;
+        
+        // Проверяем, достаточно ли золота для покупки
+        const canBuy = gameState.player.gold >= item.value;
+        if (!canBuy) {
+            shopItem.classList.add('not-enough-gold');
+        }
+        
+        shopItem.innerHTML = `
+            <div class="shop-item-top">
+                <div class="shop-item-name">${item.name}</div>
+                <div class="shop-item-rarity">${item.rarity}</div>
+            </div>
+            <div class="shop-item-type">${getItemTypeText(item.type)}</div>
+            <div class="shop-item-desc">${item.description}</div>
+            <div class="shop-item-bottom">
+                <div class="shop-item-price"><i class="fas fa-coins"></i> ${item.value}</div>
+                <button class="btn btn-small" onclick="buyItem('${item.id}')" ${!canBuy ? 'disabled' : ''}>Купить</button>
+            </div>
+        `;
+        
+        shopGrid.appendChild(shopItem);
+    });
+    
+    // Добавляем обработчики фильтров
+    document.querySelectorAll('.shop-filters .filter-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.shop-filters .filter-btn').forEach(b => {
+                b.classList.remove('active');
+            });
+            btn.classList.add('active');
+            renderShop();
+        });
+    });
+}
+
+// Функция покупки товара
+function buyItem(itemId) {
+    const item = shopItems.find(i => i.id === itemId);
+    if (!item) return;
+    
+    // Проверяем, достаточно ли золота
+    if (gameState.player.gold < item.value) {
+        alert('У вас недостаточно золота для покупки этого товара!');
+        return;
+    }
+    
+    // Подтверждение покупки
+    if (confirm(`Вы хотите купить ${item.name} за ${item.value} золота?`)) {
+        // Вычитаем стоимость
+        gameState.player.gold -= item.value;
+        document.getElementById('player-gold').textContent = gameState.player.gold;
+        document.querySelector('.shop-balance').textContent = gameState.player.gold;
+        
+        // Добавляем предмет в инвентарь
+        const newItem = {
+            id: item.id + '_' + Date.now(),  // Уникальный ID
+            name: item.name,
+            type: item.type,
+            rarity: item.rarity,
+            value: Math.floor(item.value * 0.8),  // Продажа дешевле покупки
+            quantity: 1
+        };
+        
+        // Проверяем, есть ли уже такой предмет в инвентаре
+        const existingItem = gameState.player.items.find(i => 
+            i.name === newItem.name && i.type === newItem.type && i.rarity === newItem.rarity
+        );
+        
+        if (existingItem) {
+            existingItem.quantity++;
+        } else {
+            gameState.player.items.push(newItem);
+        }
+        
+        alert(`Вы приобрели ${item.name}. Предмет добавлен в ваш инвентарь.`);
+        
+        // Обновляем магазин
+        renderShop();
+        
+        // Проверяем квест на первую покупку
+        const questToUpdate = gameState.player.quests.find(q => q.id === 'quest2' && !q.completed);
+        if (questToUpdate) {
+            questToUpdate.completed = true;
+            gameState.player.gold += questToUpdate.reward;
+            document.getElementById('player-gold').textContent = gameState.player.gold;
+            document.querySelector('.shop-balance').textContent = gameState.player.gold;
+            
+            alert(`Квест "${questToUpdate.name}" выполнен! Вы получили ${questToUpdate.reward} золота.`);
+            
+            // Обновляем отображение квестов, если экран квестов активен
+            if (gameState.currentScreen === 'quests') {
+                renderQuests();
+            }
+        }
+    }
+}
+
+// Расширение функции showSection для обновления всех систем
+function showSection(sectionName) {
+    // Запоминаем текущий экран
+    gameState.currentScreen = sectionName;
+    
+    // Скрываем все экраны
+    document.querySelectorAll('.screen-content').forEach(screen => {
+        screen.style.display = 'none';
+    });
+    
+    // Отображаем выбранный экран
+    const targetSection = document.getElementById(sectionName + '-screen');
+    if (targetSection) {
+        targetSection.style.display = 'block';
+    }
+    
+    // Обновляем активную ссылку в навигации
+    document.querySelectorAll('.nav-links a').forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('data-screen') === sectionName) {
+            link.classList.add('active');
+        }
+    });
+    
+    // Обновляем содержимое экрана в зависимости от выбранного раздела
+    if (sectionName === 'map') {
+        renderWorldMap();
+    } else if (sectionName === 'inventory') {
+        renderInventory();
+    } else if (sectionName === 'quests') {
+        renderQuests();
+    } else if (sectionName === 'shop') {
+        renderShop();
+    }
+}
+
+// Инициализация страницы при загрузке
+document.addEventListener('DOMContentLoaded', function() {
+    // Обработчики для карточек персонажей
+    document.querySelectorAll('.character-card').forEach(card => {
+        card.addEventListener('click', function() {
+            const characterId = this.getAttribute('data-character');
+            
+            if (characterId === 'new') {
+                // Здесь будет логика для создания нового персонажа
+                alert('Функция создания персонажа будет доступна в полной версии игры.');
+            } else {
+                gameState.selectedCharacter = characterId;
+                alert(`Вы выбрали персонажа: ${this.querySelector('h3').textContent}`);
+            }
+        });
+    });
+    
+    // Исправление HTML-разметки для магазина
+    const shopContainer = document.querySelector('.shop-container');
+    if (shopContainer) {
+        // Создаем элементы для магазина
+        shopContainer.innerHTML = `
+            <div class="shop-status">
+                Ваш баланс: <span class="shop-balance">${gameState.player.gold}</span> золота
+            </div>
+            
+            <div class="shop-filters">
+                <button class="filter-btn active" data-filter="all">Все товары</button>
+                <button class="filter-btn" data-filter="cigar">Сигары</button>
+                <button class="filter-btn" data-filter="hookah">Кальяны</button>
+                <button class="filter-btn" data-filter="accessory">Аксессуары</button>
+            </div>
+            
+            <div class="shop-grid">
+                <!-- Товары будут добавлены динамически -->
+            </div>
+        `;
+    }
+    
+    // Инициализируем активный экран
+    showSection('home');
+});
+    </script>
+</body>
+</html>

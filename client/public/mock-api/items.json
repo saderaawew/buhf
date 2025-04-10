@@ -1,0 +1,105 @@
+[
+  {
+    "_id": "item1",
+    "name": "Кубинская сигара",
+    "description": "Элитная кубинская сигара с богатым ароматом и насыщенным вкусом",
+    "type": "cigar",
+    "price": 250,
+    "imageUrl": "cigar-cuban.png",
+    "rarity": "rare",
+    "stats": {
+      "prestige": 5,
+      "satisfaction": 3
+    },
+    "brand": "Cohiba",
+    "origin": "Куба",
+    "isLimited": false,
+    "stock": 15
+  },
+  {
+    "_id": "item2",
+    "name": "Никарагуанская сигара",
+    "description": "Сигара ручной скрутки из Никарагуа с отличным соотношением цены и качества",
+    "type": "cigar",
+    "price": 150,
+    "imageUrl": "cigar-nicaraguan.png",
+    "rarity": "uncommon",
+    "stats": {
+      "prestige": 3,
+      "satisfaction": 4
+    },
+    "brand": "Padron",
+    "origin": "Никарагуа",
+    "isLimited": false,
+    "stock": 25
+  },
+  {
+    "_id": "item3",
+    "name": "Египетский кальян",
+    "description": "Традиционный египетский кальян с искусной отделкой",
+    "type": "hookah",
+    "price": 500,
+    "imageUrl": "hookah-egyptian.png",
+    "rarity": "epic",
+    "stats": {
+      "prestige": 7,
+      "charisma": 3,
+      "satisfaction": 5
+    },
+    "brand": "El Nefes",
+    "origin": "Египет",
+    "isLimited": false,
+    "stock": 8
+  },
+  {
+    "_id": "item4",
+    "name": "Кальянная колба",
+    "description": "Высококачественная стеклянная колба для вашего кальяна",
+    "type": "accessory",
+    "price": 100,
+    "imageUrl": "accessory-bowl.png",
+    "rarity": "common",
+    "stats": {
+      "satisfaction": 2
+    },
+    "brand": "MattPear",
+    "origin": "Россия",
+    "isLimited": false,
+    "stock": 30
+  },
+  {
+    "_id": "item5",
+    "name": "Золотая сигара",
+    "description": "Эксклюзивная сигара с оболочкой из съедобного золота",
+    "type": "cigar",
+    "price": 1000,
+    "imageUrl": "cigar-gold.png",
+    "rarity": "legendary",
+    "stats": {
+      "prestige": 10,
+      "charisma": 5,
+      "luck": 3,
+      "satisfaction": 7
+    },
+    "brand": "Gurkha",
+    "origin": "Доминиканская Республика",
+    "isLimited": true,
+    "stock": 3
+  },
+  {
+    "_id": "item6",
+    "name": "Гильотина для сигар",
+    "description": "Точный инструмент для обрезки сигар с двойным лезвием",
+    "type": "accessory",
+    "price": 120,
+    "imageUrl": "accessory-cutter.png",
+    "rarity": "uncommon",
+    "stats": {
+      "satisfaction": 3
+    },
+    "brand": "Xikar",
+    "origin": "США",
+    "isLimited": false,
+    "stock": 20
+  }
+]

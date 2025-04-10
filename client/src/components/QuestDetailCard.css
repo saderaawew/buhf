@@ -1,0 +1,399 @@
+.quest-detail-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 1rem;
+}
+
+.quest-detail-card {
+  background-color: #1a1a1a;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 800px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  display: flex;
+  flex-direction: column;
+}
+
+.quest-detail-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.25rem 1.5rem;
+  background: linear-gradient(to right, #252525, #1e1e1e);
+  border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+  position: sticky;
+  top: 0;
+  z-index: 5;
+}
+
+.quest-detail-header h2 {
+  margin: 0;
+  color: var(--gold-primary, #d4af37);
+  font-size: 1.5rem;
+}
+
+.close-button {
+  background: none;
+  border: none;
+  color: #aaa;
+  font-size: 1.25rem;
+  cursor: pointer;
+  padding: 0.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s;
+}
+
+.close-button:hover {
+  color: var(--gold-primary, #d4af37);
+}
+
+.quest-detail-content {
+  padding: 1.5rem;
+  color: #e0e0e0;
+}
+
+.quest-detail-banner {
+  position: relative;
+  border-radius: 6px;
+  overflow: hidden;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.quest-detail-banner img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  display: block;
+}
+
+.quest-detail-badges {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 0.75rem;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0));
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.quest-difficulty,
+.quest-type {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  background-color: rgba(30, 30, 30, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.quest-difficulty i,
+.quest-type i {
+  font-size: 0.75rem;
+}
+
+.quest-difficulty.novice {
+  color: #65c565;
+}
+
+.quest-difficulty.easy {
+  color: #7ccff8;
+}
+
+.quest-difficulty.medium {
+  color: #ffb14c;
+}
+
+.quest-difficulty.hard {
+  color: #ff6b6b;
+}
+
+.quest-difficulty.expert {
+  color: #c359ff;
+}
+
+.quest-type {
+  color: var(--gold-primary, #d4af37);
+}
+
+.quest-description {
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+}
+
+.quest-requirements,
+.quest-objectives,
+.quest-rewards {
+  margin-bottom: 2rem;
+}
+
+.quest-requirements h3,
+.quest-objectives h3,
+.quest-rewards h3 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  color: var(--gold-primary, #d4af37);
+  font-size: 1.25rem;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+  padding-bottom: 0.5rem;
+}
+
+.requirement {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 0.75rem;
+  background-color: rgba(40, 40, 40, 0.5);
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+}
+
+.requirement i {
+  color: var(--gold-primary, #d4af37);
+}
+
+.requirement-missing {
+  margin-left: auto;
+  color: #ff6b6b;
+  font-size: 0.85rem;
+}
+
+.quest-objectives ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.quest-objectives li {
+  display: flex;
+  margin-bottom: 1rem;
+  padding: 0.75rem;
+  background-color: rgba(40, 40, 40, 0.5);
+  border-radius: 4px;
+  border-left: 3px solid #555;
+  transition: border-color 0.3s;
+}
+
+.quest-objectives li.completed {
+  border-left-color: #65c565;
+  opacity: 0.8;
+}
+
+.objective-check {
+  margin-right: 0.75rem;
+  display: flex;
+  align-items: flex-start;
+  padding-top: 0.125rem;
+}
+
+.objective-check i {
+  font-size: 1.1rem;
+}
+
+.objective-check .fa-check-circle {
+  color: #65c565;
+}
+
+.objective-content {
+  flex-grow: 1;
+}
+
+.objective-description {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.objective-progress {
+  margin-top: 0.5rem;
+}
+
+.progress-bar {
+  height: 6px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 0.25rem;
+}
+
+.progress-fill {
+  height: 100%;
+  background-color: var(--gold-primary, #d4af37);
+  border-radius: 3px;
+  transition: width 0.3s;
+}
+
+.progress-text {
+  font-size: 0.8rem;
+  color: #aaa;
+}
+
+.rewards-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.reward-item {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem;
+  background-color: rgba(40, 40, 40, 0.5);
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: border-color 0.3s;
+}
+
+.reward-item:hover {
+  border-color: var(--gold-primary, #d4af37);
+}
+
+.reward-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #2a2a2a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 0.75rem;
+  flex-shrink: 0;
+}
+
+.reward-icon.xp {
+  color: #ffb14c;
+  background-color: rgba(255, 177, 76, 0.15);
+}
+
+.reward-icon.gold {
+  color: var(--gold-primary, #d4af37);
+  background-color: rgba(212, 175, 55, 0.15);
+}
+
+.reward-icon.item {
+  color: #7ccff8;
+  background-color: rgba(124, 207, 248, 0.15);
+}
+
+.reward-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.reward-name {
+  font-size: 0.9rem;
+  color: #aaa;
+  margin-bottom: 0.25rem;
+}
+
+.reward-value {
+  font-weight: bold;
+}
+
+.quest-detail-actions {
+  padding: 1.25rem 1.5rem;
+  background-color: rgba(30, 30, 30, 0.9);
+  border-top: 1px solid rgba(212, 175, 55, 0.2);
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  position: sticky;
+  bottom: 0;
+}
+
+.btn {
+  border: none;
+  border-radius: 4px;
+  padding: 0.75rem 1.25rem;
+  font-weight: bold;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: all 0.2s;
+}
+
+.btn i {
+  font-size: 0.9rem;
+}
+
+.btn-primary {
+  background-color: var(--gold-primary, #d4af37);
+  color: #121212;
+}
+
+.btn-primary:hover {
+  background-color: #e5c258;
+}
+
+.btn-primary:disabled {
+  background-color: #666;
+  cursor: not-allowed;
+}
+
+.btn-danger {
+  background-color: #d64045;
+  color: #fff;
+}
+
+.btn-danger:hover {
+  background-color: #e25559;
+}
+
+.quest-completed-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  background-color: rgba(50, 152, 58, 0.2);
+  border: 1px solid rgba(50, 152, 58, 0.5);
+  border-radius: 4px;
+  color: #65c565;
+  font-weight: bold;
+}
+
+@media (max-width: 768px) {
+  .quest-detail-card {
+    max-height: 100vh;
+    border-radius: 0;
+  }
+  
+  .rewards-list {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Scrollbar styling */
+.quest-detail-card::-webkit-scrollbar {
+  width: 6px;
+}
+
+.quest-detail-card::-webkit-scrollbar-track {
+  background: #1a1a1a;
+}
+
+.quest-detail-card::-webkit-scrollbar-thumb {
+  background-color: #333;
+  border-radius: 3px;
+}
+
+.quest-detail-card::-webkit-scrollbar-thumb:hover {
+  background-color: #444;
+}
