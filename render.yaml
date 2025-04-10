@@ -1,0 +1,14 @@
+services:
+  # Web service
+  - type: web
+    name: buhf-web
+    env: node
+    buildCommand: npm install && npm run install-all && cd client && npm run build
+    startCommand: npm run server
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: MONGO_URI
+        sync: false # User needs to provide this
